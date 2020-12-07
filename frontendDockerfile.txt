@@ -1,0 +1,20 @@
+####le dockerfile est celui utiliser pour le docker part 2.10 mais avec quelque variante####
+FROM ubuntu:16.04
+RUN apt-get update && apt-get install -y curl
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash
+RUN apt-get install -y nodejs
+RUN apt-get install git -y
+RUN git clone https://github.com/docker-hy/frontend-example-docker.git
+
+
+####variant vis-a-vis l'original, le url est 30080 pour le backend####
+
+ENV API_URL=http://localhost:30080
+
+###########################################
+
+
+WORKDIR /frontend-example-docker
+RUN npm install
+EXPOSE 5000
+CMD ["npm", "start"]
